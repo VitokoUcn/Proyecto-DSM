@@ -5,6 +5,7 @@ import RegisterScreen from '../views/RegisterScreen';
 import { HomeScreen } from '../views/HomeScreen';
 import { AuthContext } from '../context/AuthContext';
 import LoadingScreen from '../views/LoadingScreen';
+import ProfileScreen from '../views/UserTab/ProfileScreen';
 
 
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ export const Navigator = () => {
 
                             <Stack.Screen name='Login' component={LoginScreen} />
                             <Stack.Screen name='Register' component={RegisterScreen} />
+                            <Stack.Screen name='Profile' component={ProfileScreen} />
 
                         </>
                     )
