@@ -34,7 +34,7 @@ export const loginStyles = StyleSheet.create({
         textAlign: 'center'
     },
     input: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         borderRadius: 10,
         paddingHorizontal: 15
     }, 
