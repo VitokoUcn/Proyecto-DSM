@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
                     <TextInput
                         style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
 
-                        placeholder='Correo Electronico'
+                        placeholder='Correo Electrónico'
                         placeholderTextColor="white"
                         keyboardType='email-address'
                        
@@ -72,7 +72,7 @@ const LoginScreen = ({ navigation }) => {
                         onChangeText={(value) => onChange(value, 'password')}
                         value={password}
                     />
-                    {/* Botono login */}
+                    {/* Boton login */}
                     <View style={loginStyles.buttonContainer}>
                         <TouchableOpacity
                             activeOpacity={0.8}
@@ -96,7 +96,7 @@ const LoginScreen = ({ navigation }) => {
                                 <Text style={loginStyles.linkText}>REGÍSTRATE</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                </View>
             </KeyboardAvoidingView>
             
         </>

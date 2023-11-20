@@ -1,6 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Alert, StyleSheet } from 'react-native';
 import React, { useContext } from 'react'
-import { loginStyles } from '../theme/loginTheme';
+import { loginStyles } from '../theme/registerTheme';
 import { Background } from '../components/Background';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
@@ -39,9 +39,9 @@ const RegisterScreen = ({ navigation }) => {
                     {/* Email */}
                     <Text style={loginStyles.label}></Text>
                     <TextInput
-                        style={loginStyles.input}
-                        placeholder='Ingrese su email'
-                        placeholderTextColor="black"
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+                        placeholder='Correo Electrónico'
+                        placeholderTextColor="white"
                         keyboardType='email-address'
 
                         autoCapitalize="none"
@@ -51,11 +51,22 @@ const RegisterScreen = ({ navigation }) => {
                     />
 
                     {/* Nombre */}
-                    <Text style={loginStyles.label}>Nombre</Text>
                     <TextInput
-                        style={loginStyles.input}
-                        placeholder='Ingrese su nombre'
-                        placeholderTextColor="black"
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+                        placeholder='Nombre Completo'
+                        placeholderTextColor="white"
+
+                        autoCapitalize="words"
+                        autoCorrect={false}
+                        onChangeText={(value) => onChange(value, 'name')}
+                        value={name}
+                    />
+
+                    {/* Nombre de usuario*/}
+                    <TextInput
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+                        placeholder='Nombre de Usuario'
+                        placeholderTextColor="white"
 
                         autoCapitalize="words"
                         autoCorrect={false}
@@ -64,40 +75,42 @@ const RegisterScreen = ({ navigation }) => {
                     />
 
                     {/* Contraseña */}
-                    <Text style={loginStyles.label}>Contraseña</Text>
                     <TextInput
-                        style={loginStyles.input}
-                        placeholder='*****'
-                        placeholderTextColor="black"
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+                        placeholder='Contraseña'
+                        placeholderTextColor="white"
                         secureTextEntry
                         autoCapitalize="none"
                         autoCorrect={false}
                         onChangeText={(value) => onChange(value, 'password')}
                         value={password}
                     />
-                    {/* Boton login */}
+                    {/* Boton registro */}
                     <View style={loginStyles.buttonContainer}>
                         <TouchableOpacity
                             activeOpacity={0.8}
                             style={loginStyles.button}
                             onPress={onSignIn}
                         >
-                            <Text style={loginStyles.buttonText}>Registrar</Text>
+                            <Text style={{...loginStyles.buttonText}}>REGISTRARSE</Text>
                         </TouchableOpacity>
                     </View>
 
                     {/* Crear una nueva cuenta */}
-                    <View style={loginStyles.newUserContainer}>
-                        <TouchableOpacity
-                            activeOpacity={0.8}
 
-                            onPress={() => navigation.replace('Login')}
-                        >
-                            <Text style={loginStyles.buttonText}>Ir Login</Text>
-                        </TouchableOpacity>
+                    <View style={{justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={loginStyles.label2}>¿Ya tienes una cuenta?</Text>
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    onPress={() => navigation.replace('Login')}
+                                >
+                                    <Text style={loginStyles.linkText}>Entrar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
                     </View>
-
-                </View>
             </KeyboardAvoidingView>
         </>
     )
