@@ -14,10 +14,11 @@ export const loginStyles = StyleSheet.create({
         marginTop: 10
     },
     title: {
+        
         color: 'white',
-        fontSize: 40,
+        fontSize: 52,
         fontWeight: 'bold',
-        marginTop: 0,
+        marginTop: 20,
         textAlign: 'center'
     },
     label: {
@@ -27,35 +28,43 @@ export const loginStyles = StyleSheet.create({
         paddingBottom: 10
     },
     label2: {
-        marginTop: 10,
+        marginTop: 25,
         color: 'white',
-        fontWeight: 'bold',
-        paddingBottom: 20,
-        textAlign: 'center'
+        marginHorizontal: 5,
+        paddingBottom: 10
     },
     input: {
         backgroundColor: 'black',
         borderRadius: 10,
-        paddingHorizontal: 15
+        paddingHorizontal: 10,
+        marginTop: 20
     }, 
     buttonContainer: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 25
     },
     button: {
         borderWidth: 4,
-        borderColor: '#2C64C6',
-        paddingHorizontal: 20,
-        paddingVertical: 5,
+        borderColor: '#2c64c6',
+        backgroundColor: '#2c64c6',
+        paddingHorizontal: 130,
+        paddingVertical: 1,
         marginVertical: 10,
         borderRadius: 10
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: 'white',
-        textAlign: 'center',
-        placeContent: 'center',
-        
+        color: 'white'
     },
+    linkText: {
+
+        fontSize: 16,
+        //fontWeight: 'bold',
+        color: 'white',
+        marginTop: 15,
+        marginHorizontal: 5,
+
+
+    }
 });
