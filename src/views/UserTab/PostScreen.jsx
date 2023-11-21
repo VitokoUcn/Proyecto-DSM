@@ -7,34 +7,41 @@ const CreatePostScreen = ({ navigation }) => {
   const [description, setDescription] = useState('');  // Estado para la descripción
   const [imagePath, setImagePath] = useState(null);  // Estado para la ruta de la imagen
 
-  const pickImage = () => {
-    launchImageLibrary({ mediaType: 'photo' }, response => {
-      if (!response.didCancel) {
-        setImagePath(response.uri);
-      }
-    });
-  };
+  const pickImage = async () => {
+    const result = await launchImageLibrary({ mediaType: 'photo', quality: 0 }); // Utiliza paréntesis en lugar de corchetes
+    if (!result.didCancel) {
+      setImagePath(result.assets[0].uri);
+    }
+  };  
 
   const handleSubmit = async () => {
-    // Construir el objeto de datos del post
-    const postData = {
-      title,
-      description,
-      pathImage: imagePath,
-      likes: 0,
-      comments: 0,
-    };
-
+    // Verificar si se ha seleccionado una imagen
+    if (!imagePath) {
+      console.error('Por favor, selecciona una imagen antes de publicar.');
+      return;
+    }
+  
+  
+    // Crear un objeto FormData para enviar la imagen
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('image', {
+      uri: imagePath,
+      type: 'image/jpeg', // Ajusta el tipo de imagen según sea necesario
+      name: 'image.jpg',
+    });
+  
     // Enviar datos a la API
     try {
       const response = await fetch('http://192.168.1.85:8000/api/post', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify(postData),
+        body: formData,
       });
-
+  
       if (response.ok) {
         // El post se creó exitosamente, puedes realizar acciones adicionales si es necesario
         console.log('Post creado con éxito');
@@ -51,7 +58,17 @@ const CreatePostScreen = ({ navigation }) => {
 
   return (
     <>
+      
+      <View style={styles.titleContainer}>
+
+        <Text style={styles.title}>Nueva Publicación</Text> 
+
+      </View>
+
+
       <View style={styles.container}>
+
+
         <Text style={styles.label}>Título:</Text>
         <TextInput
           style={styles.input}
@@ -67,11 +84,11 @@ const CreatePostScreen = ({ navigation }) => {
           multiline
         />
 
+        {imagePath && <Image source={{ uri: imagePath }} style={styles.imagePreview} />}
+
         <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
           <Text style={styles.buttonText}>Seleccionar Imagen</Text>
         </TouchableOpacity>
-
-        {imagePath && <Image source={{ uri: imagePath }} style={styles.imagePreview} />}
 
         <TouchableOpacity style={styles.publishButton} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Publicar</Text>
@@ -82,6 +99,23 @@ const CreatePostScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    borderColor: '#ccc',
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'center',
+    height: 100,
+    backgroundColor: '#f0f0f0',
+    marginTop: 100,
+  },
+  titleContainer: {
+    padding: 0,
+    justifyContent: 'center',
+    backgroundColor: '#f0f0f0',
+    width: '100%',
+    height: 100,
+  },
   container: {
     padding: 16,
     flex: 1,
@@ -121,7 +155,8 @@ const styles = StyleSheet.create({
   imagePreview: {
     width: '100%',
     height: 200,
-    resizeMode: 'cover',
+    resizeMode: 'center',
+    alignSelf: 'center',
     marginBottom: 16,
   },
 });
