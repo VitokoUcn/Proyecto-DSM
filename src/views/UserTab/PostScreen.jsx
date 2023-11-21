@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import userApi from '../../api/userApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatePostScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');  // Estado para el título
@@ -8,7 +10,7 @@ const CreatePostScreen = ({ navigation }) => {
   const [imagePath, setImagePath] = useState(null);  // Estado para la ruta de la imagen
 
   const pickImage = async () => {
-    const result = await launchImageLibrary({ mediaType: 'photo', quality: 0 }); // Utiliza paréntesis en lugar de corchetes
+    const result = await launchImageLibrary({ mediaType: 'photo', quality: 0 });
     if (!result.didCancel) {
       setImagePath(result.assets[0].uri);
     }
@@ -34,22 +36,26 @@ const CreatePostScreen = ({ navigation }) => {
   
     // Enviar datos a la API
     try {
-      const response = await fetch('http://192.168.1.85:8000/api/post', {
-        method: 'POST',
+      console.log('Enviando datos a la API...');
+      console.log('Título:', title);
+      console.log('Descripción:', description);
+      console.log('Imagen:', imagePath);
+      const token = await AsyncStorage.getItem('token');
+      const response = await userApi.post('/post', formData, {
         headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
-        body: formData,
       });
   
-      if (response.ok) {
+      if (response.status === 200) {
         // El post se creó exitosamente, puedes realizar acciones adicionales si es necesario
         console.log('Post creado con éxito');
         // Navegar a otra pantalla si es necesario
         // navigation.navigate('OtraPantalla');
       } else {
         // La creación del post falló, manejar el error según sea necesario
-        console.error('Error al crear el post');
+        console.error('Error al crear el post', response.status, response.statusText);
       }
     } catch (error) {
       console.error('Error en la solicitud:', error.message);

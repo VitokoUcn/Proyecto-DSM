@@ -14,7 +14,7 @@ export const Navigator = () => {
 
 
     if(status === 'checking') {
-        return <LoadingScreen/>
+        return <LoginScreen/>
     }
 
     return (
