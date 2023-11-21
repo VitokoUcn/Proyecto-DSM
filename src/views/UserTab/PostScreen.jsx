@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const CreatePostScreen = ({ navigation }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [imagePath, setImagePath] = useState(null);
+  const [title, setTitle] = useState('');  // Estado para el título
+  const [description, setDescription] = useState('');  // Estado para la descripción
+  const [imagePath, setImagePath] = useState(null);  // Estado para la ruta de la imagen
 
   const pickImage = () => {
     launchImageLibrary({ mediaType: 'photo' }, response => {
@@ -15,10 +15,38 @@ const CreatePostScreen = ({ navigation }) => {
     });
   };
 
-  const handleSubmit = () => {
-    // Aquí puedes realizar acciones con los datos del post (title, description, imagePath)
-    // Por ejemplo, enviar los datos a una API o guardar en una base de datos.
-    // Luego, puedes navegar a otra pantalla si es necesario.
+  const handleSubmit = async () => {
+    // Construir el objeto de datos del post
+    const postData = {
+      title,
+      description,
+      pathImage: imagePath,
+      likes: 0,
+      comments: 0,
+    };
+
+    // Enviar datos a la API
+    try {
+      const response = await fetch('http://192.168.1.85:8000/api/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (response.ok) {
+        // El post se creó exitosamente, puedes realizar acciones adicionales si es necesario
+        console.log('Post creado con éxito');
+        // Navegar a otra pantalla si es necesario
+        // navigation.navigate('OtraPantalla');
+      } else {
+        // La creación del post falló, manejar el error según sea necesario
+        console.error('Error al crear el post');
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error.message);
+    }
   };
 
   return (
@@ -74,14 +102,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   imageButton: {
-    backgroundColor: 'brown', // Cambia el color del botón de seleccionar imagen
+    backgroundColor: 'brown',
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
     marginBottom: 16,
   },
   publishButton: {
-    backgroundColor: 'blue', // Cambia el color del botón de publicar
+    backgroundColor: 'blue',
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
