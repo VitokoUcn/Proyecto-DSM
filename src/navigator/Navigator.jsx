@@ -5,7 +5,7 @@ import RegisterScreen from '../views/RegisterScreen';
 import { HomeScreen } from '../views/HomeScreen';
 import { AuthContext } from '../context/AuthContext';
 import LoadingScreen from '../views/LoadingScreen';
-
+import { BottomNavigator } from './bottomTab/BottomNavigator';
 
 const Stack = createStackNavigator();
 
@@ -34,9 +34,7 @@ export const Navigator = () => {
                         </>
                     )
                     : (
-                        <>
-                            <Stack.Screen name='HomeScreen' component={BottomNavigator} />
-                        </>
+                        <Stack.Screen name='BottomTab' component={BottomNavigator} />
                     )
             }
 
