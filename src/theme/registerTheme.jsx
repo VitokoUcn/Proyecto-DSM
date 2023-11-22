@@ -33,11 +33,22 @@ export const loginStyles = StyleSheet.create({
         color: 'white',
         marginHorizontal: 5,
         fontSize: 20,
-        paddingBottom: 10
-
+        paddingBottom: 10,
+        marginTop: 10
     },
+    label3: {
+        
+        textAlign: 'center',
+        color: 'white',
+        marginHorizontal: 5,
+        fontSize: 20,
+        paddingBottom: 10,
+        marginTop: 30
+    },
+
     input: {
         backgroundColor: 'black',
+        color:'white',
         borderRadius: 10,
         paddingHorizontal: 10,
         marginTop: 20
@@ -51,8 +62,8 @@ export const loginStyles = StyleSheet.create({
         borderWidth: 4,
         borderColor: '#2c64c6',
         backgroundColor: '#2c64c6',
-        paddingHorizontal: 130,
-        paddingVertical: 1,
+        paddingHorizontal: 112,
+        paddingVertical: 6,
         marginVertical: 10,
         borderRadius: 10
     },
@@ -95,6 +106,7 @@ export const loginStyles = StyleSheet.create({
     },
     inputFieldRegister: {
         color: 'white',
+        marginTop: 50,
         fontSize: 20
     },
     loginContainer: {

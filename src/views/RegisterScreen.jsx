@@ -8,8 +8,10 @@ import { useForm } from '../hooks/useForm';
 const RegisterScreen = ({ navigation }) => {
 
     const { signUp } = useContext(AuthContext);
-    const {name, email, password, onChange}= useForm({
+    const {name, lastName, userName, email, password, onChange}= useForm({
         name: '',
+        lastName: '',
+        userName: '',
         email: '',
         password: ''
     });
@@ -31,13 +33,13 @@ const RegisterScreen = ({ navigation }) => {
             >
                 <View style={loginStyles.formContainer}>
                     <Text style={loginStyles.title}>SocialDev</Text>
-                    <Text style={loginStyles.label2}>Registrate para compartir y conocer a otros desarrolladores</Text>
+                    <Text style={loginStyles.label3}>Registrate para compartir y conocer a otros desarrolladores</Text>
                     
                     
                     
 
                     {/* Email */}
-                    <Text style={loginStyles.label}></Text>
+                    
                     <TextInput
                         style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
                         placeholder='Correo Electrónico'
@@ -62,16 +64,28 @@ const RegisterScreen = ({ navigation }) => {
                         value={name}
                     />
 
+                    {/* Apellido */}
+                    <TextInput
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+                        placeholder='Apellido'
+                        placeholderTextColor="white"
+
+                        autoCapitalize="words"
+                        autoCorrect={false}
+                        onChangeText={(value) => onChange(value, 'lastName')}
+                        value={lastName}
+                    />
+
                     {/* Nombre de usuario*/}
                     <TextInput
                         style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
                         placeholder='Nombre de Usuario'
                         placeholderTextColor="white"
-
+                        //TODO: cambiar la variable de nombre de usuario
                         autoCapitalize="words"
                         autoCorrect={false}
-                        onChangeText={(value) => onChange(value, 'name')}
-                        value={name}
+                        onChangeText={(value) => onChange(value, 'userName')}
+                        value={userName}
                     />
 
                     {/* Contraseña */}
