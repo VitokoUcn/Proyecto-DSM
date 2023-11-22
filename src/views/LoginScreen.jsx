@@ -32,6 +32,9 @@ const LoginScreen = ({ navigation }) => {
         Keyboard.dismiss();
         signIn({ email, password })
     }
+    const irPerfil = () => {
+        navigation.navigate('Profile')
+    }
 
     return (
         <>
@@ -83,10 +86,11 @@ const LoginScreen = ({ navigation }) => {
                         <TouchableOpacity
                             activeOpacity={0.8}
                             style={loginStyles.button}
-                            onPress={irRegistro}
+                            onPress={irPerfil}
                         >
                             <Text style={loginStyles.buttonText}>¿No tienes cuenta?</Text>
                         </TouchableOpacity>
+                        
                     </View>
                 </View>
             </KeyboardAvoidingView>
