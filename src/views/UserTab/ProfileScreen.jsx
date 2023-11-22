@@ -12,7 +12,6 @@ import { Background } from '../../components/Background';
 const ProfileScreen = () => {
     const navigation = useNavigation();
     const goToBottomNavigator = () => {
-        navigation.navigate('BottomNavigator');
     };
     return (
         <>

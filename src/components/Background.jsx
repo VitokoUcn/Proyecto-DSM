@@ -9,7 +9,7 @@ export const Background = () => {
                 backgroundColor: 'black',
                 top: -400,
                 width: 1000,
-                height: 1200,
+                height: 1500,
             }}
         />
     );

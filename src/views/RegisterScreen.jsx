@@ -8,17 +8,17 @@ import { useForm } from '../hooks/useForm';
 const RegisterScreen = ({ navigation }) => {
 
     const { signUp } = useContext(AuthContext);
-    const {name, lastName, userName, email, password, onChange}= useForm({
+    const {name, last_name, username, email, password, onChange}= useForm({
         name: '',
-        lastName: '',
-        userName: '',
+        last_name: '',
+        username: '',
         email: '',
         password: ''
     });
 
     const onSignIn = () => {
         Keyboard.dismiss();
-        signUp({ name, email, password })
+        signUp({ username,name, last_name, email, password })
     }
 
     return (
@@ -72,8 +72,8 @@ const RegisterScreen = ({ navigation }) => {
 
                         autoCapitalize="words"
                         autoCorrect={false}
-                        onChangeText={(value) => onChange(value, 'lastName')}
-                        value={lastName}
+                        onChangeText={(value) => onChange(value, 'last_name')}
+                        value={last_name}
                     />
 
                     {/* Nombre de usuario*/}
@@ -84,8 +84,8 @@ const RegisterScreen = ({ navigation }) => {
                         //TODO: cambiar la variable de nombre de usuario
                         autoCapitalize="words"
                         autoCorrect={false}
-                        onChangeText={(value) => onChange(value, 'userName')}
-                        value={userName}
+                        onChangeText={(value) => onChange(value, 'username')}
+                        value={username}
                     />
 
                     {/* Contraseña */}
