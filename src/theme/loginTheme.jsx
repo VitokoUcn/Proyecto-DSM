@@ -54,8 +54,6 @@ export const loginStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white',
-        textAlign: 'center',
-        placeContent: 'center',
-        
+        textAlign: 'center',        
     },
 });
