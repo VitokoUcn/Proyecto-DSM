@@ -48,12 +48,14 @@ const LoginScreen = ({ navigation }) => {
             >
                 <View style={loginStyles.formContainer}>
                     <Text style={loginStyles.title}>SocialDEV</Text>
-                    <Text style={loginStyles.label}>Email</Text>
+                    {/* <Text style={loginStyles.label}>Email</Text> */}
                     <TextInput
-                        style={loginStyles.input}
-                        placeholder='Ingrese su email'
-                        placeholderTextColor="black"
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+
+                        placeholder='Correo Electrónico'
+                        placeholderTextColor="white"
                         keyboardType='email-address'
+                       
 
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -62,40 +64,47 @@ const LoginScreen = ({ navigation }) => {
                     />
 
                     {/* Contraseña */}
-                    <Text style={loginStyles.label}>Contraseña</Text>
+                    {/* <Text style={loginStyles.label}>Contraseña</Text> */}
                     <TextInput
-                        style={loginStyles.input}
-                        placeholder='********'
-                        placeholderTextColor="black"
+                        style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
+                        placeholder='Contraseña'
+                        placeholderTextColor="white"
                         secureTextEntry
                         autoCapitalize="none"
                         autoCorrect={false}
                         onChangeText={(value) => onChange(value, 'password')}
                         value={password}
                     />
-                    {/* Botono login */}
+                    {/* Boton login */}
                     <View style={loginStyles.buttonContainer}>
                         <TouchableOpacity
                             activeOpacity={0.8}
                             style={loginStyles.button}
                             onPress={onLogin}
                         >
-                            <Text style={loginStyles.buttonText}>Iniciar Sesión</Text>
+                            {/* <Text style={loginStyles.buttonText,}>ENTRAR</Text> */}
+                        <Text style={{...loginStyles.buttonText}}>ENTRAR</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            style={loginStyles.button}
-                            onPress={irPerfil}
-                        >
-                            <Text style={loginStyles.buttonText}>¿No tienes cuenta?</Text>
-                        </TouchableOpacity>
-                        
                     </View>
+                    
+                </View>
+                <View style={{justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={loginStyles.label2}>¿No tienes una cuenta?</Text>
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={irRegistro}
+                            >
+                                <Text style={loginStyles.linkText}>REGÍSTRATE</Text>
+                            </TouchableOpacity>
+                        </View>
                 </View>
             </KeyboardAvoidingView>
+            
         </>
     );
+
 };
 
 const styles = StyleSheet.create({

@@ -59,9 +59,9 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const signUp = async ({ name, email, password }) => {
+    const signUp = async ({ username, name, last_name, email, password }) => {
         try {
-            const { data } = await userApi.post('/register', { name, email, password });
+            const { data } = await userApi.post('/register', { username, name, last_name, email, password });
             console.log(data.user);
             dispatch({
                 type: 'signUp',

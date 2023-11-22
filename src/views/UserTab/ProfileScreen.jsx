@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Button, } from 'react-native';
 import { styles, stylesProfile } from '../../theme/profileTheme';
@@ -14,7 +12,6 @@ import { Background } from '../../components/Background';
 const ProfileScreen = () => {
     const navigation = useNavigation();
     const goToBottomNavigator = () => {
-        navigation.navigate('BottomNavigator');
     };
     return (
         <>

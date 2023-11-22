@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const loginStyles = StyleSheet.create({
+   
     formContainer: {
-        flex: 3,
+        flex: 1,
         paddingHorizontal: 30,
         justifyContent: 'center',
         height: 600,
@@ -31,11 +32,23 @@ export const loginStyles = StyleSheet.create({
         marginTop: 25,
         color: 'white',
         marginHorizontal: 5,
-        paddingBottom: 10
+        fontSize: 20,
+        paddingBottom: 10,
+        marginTop: 10
     },
+    label3: {
+        
+        textAlign: 'center',
+        color: 'white',
+        marginHorizontal: 5,
+        fontSize: 20,
+        paddingBottom: 10,
+        marginTop: 30
+    },
+
     input: {
         backgroundColor: 'black',
-        color: 'white',
+        color:'white',
         borderRadius: 10,
         paddingHorizontal: 10,
         marginTop: 20
@@ -43,8 +56,36 @@ export const loginStyles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
         marginTop: 25
+
     },
     button: {
+        borderWidth: 4,
+        borderColor: '#2c64c6',
+        backgroundColor: '#2c64c6',
+        paddingHorizontal: 112,
+        paddingVertical: 6,
+        marginVertical: 10,
+        borderRadius: 10
+    },
+    buttonText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'white'
+    },
+    linkText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    inputField: {
+        color: 'white',
+        fontSize: 20
+    },
+    registerContainer: {
+        alignItems: 'flex-end',
+        marginTop: 10
+    },
+    buttonRegister: {
         borderWidth: 4,
         borderColor: '#2c64c6',
         backgroundColor: '#2c64c6',
@@ -53,19 +94,23 @@ export const loginStyles = StyleSheet.create({
         marginVertical: 10,
         borderRadius: 10
     },
-    buttonText: {
+    buttonRegisterText: {
         fontSize: 16,
         fontWeight: 'bold',
         color: 'white'
     },
-    linkText: {
-
-        fontSize: 16,
-        //fontWeight: 'bold',
+    linkRegisterText: {
         color: 'white',
-        marginTop: 15,
-        marginHorizontal: 5,
-
-
-    }
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    inputFieldRegister: {
+        color: 'white',
+        marginTop: 50,
+        fontSize: 20
+    },
+    loginContainer: {
+        alignItems: 'flex-end'
+    },
+    
 });

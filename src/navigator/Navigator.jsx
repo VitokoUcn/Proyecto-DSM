@@ -5,6 +5,7 @@ import RegisterScreen from '../views/RegisterScreen';
 import { HomeScreen } from '../views/HomeScreen';
 import { AuthContext } from '../context/AuthContext';
 import LoadingScreen from '../views/LoadingScreen';
+import { BottomNavigator } from './bottomTab/BottomNavigator';
 import ProfileScreen from '../views/UserTab/ProfileScreen';
 
 
@@ -15,7 +16,7 @@ export const Navigator = () => {
 
 
     if(status === 'checking') {
-        return <LoadingScreen/>
+        return <LoginScreen/>
     }
 
     return (
@@ -36,9 +37,7 @@ export const Navigator = () => {
                         </>
                     )
                     : (
-                        <>
-                            <Stack.Screen name='HomeScreen' component={BottomNavigator} />
-                        </>
+                        <Stack.Screen name='BottomTab' component={BottomNavigator} />
                     )
             }
 
