@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Alert, StyleSheet} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Alert, StyleSheet, Button} from 'react-native';
 import { loginStyles } from '../theme/registerTheme';
 import { Background } from '../components/Background';
 import { AuthContext } from '../context/AuthContext';
@@ -6,6 +6,8 @@ import { useForm } from '../hooks/useForm';
 import { Picker } from '@react-native-picker/picker';
 import React, { useState, useContext } from 'react';
 import CheckBox from '@react-native-community/checkbox';
+import DatePicker from 'react-native-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
@@ -20,26 +22,28 @@ const RegisterScreen = ({ navigation }) => {
         email: '',
         password: ''
     });
-
     const onSignIn = () => {
         Keyboard.dismiss();
         signUp({ name, email, password })
     }
-
     const [selectedSkill, setSelectedSkill] = useState('');
-
-    const skills = ['Res. de Problemas', 'Pensamiento Analitico', 'Trabajo en equipo', 'Creatividad', 'Comunicacion', 'Autodidactismo'];
-
-
-    const [selectedSkills, setSelectedSkills] = useState([]);
-    
+    const skills = ['Res. de Problemas', 'Pens. Analitico', 'Trabajo en equipo', 'Creatividad', 'Comunicacion', 'Autodidactismo'];
+    const [selectedSkills, setSelectedSkills] = useState([]); 
     const onCheck = (skill) => {
         if (selectedSkills.includes(skill)) {
         setSelectedSkills(selectedSkills.filter((s) => s !== skill));
         } else {
         setSelectedSkills([...selectedSkills, skill]);
         }
+
     };
+    const [date, setDate] = useState(new Date());
+    const [show, setShow] = useState(false);
+    const onDateChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+      };
 
     return (
         <>
@@ -73,7 +77,7 @@ const RegisterScreen = ({ navigation }) => {
                     {/* Nombre */}
                     <TextInput
                         style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
-                        placeholder='Nombre Completo'
+                        placeholder='Nombre'
                         placeholderTextColor="white"
 
                         autoCapitalize="words"
@@ -93,7 +97,38 @@ const RegisterScreen = ({ navigation }) => {
                         onChangeText={(value) => onChange(value, 'lastName')}
                         value={lastName}
                     />
+                    <View style={{ ...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1, flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ color: '#FFFFFF', marginRight: 20 }}>Fecha de nacimiento:</Text>
+    
+                        {show && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode="date"
+                                placeholder="select date"
+                                format="YYYY-MM-DD"
+                                minDate="1900-01-01"
+                                maxDate="2022-12-31"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                customStyles={{
+                                    dateIcon: {
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 4,
+                                        marginLeft: 0
+                                    },
+                                    dateInput: {
+                                        marginLeft: 36
+                                    }
+                                }}
+                                onChange={onDateChange}
+                            />
+                        )}
 
+                        <Button title="Show Date Picker" onPress={() => setShow(true)} />
+                        
+                    </View>
                     {/* Nombre de usuario*/}
                     <TextInput
                         style={{...loginStyles.input, borderColor: '#2c64c6', borderWidth: 1}}
@@ -118,12 +153,20 @@ const RegisterScreen = ({ navigation }) => {
                         value={password}
                     />
 
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                    <View style={{ ...loginStyles.input, flexDirection: 'row', flexWrap: 'wrap', borderColor: '#2c64c6', borderWidth: 1 }}>
+                       
+                        <Text style={loginStyles.input}>Habilidades como Programador(solo 2)</Text>
                         {skills.map((skill) => (
                             <View key={skill} style={{ width: '50%', flexDirection: 'row', alignItems: 'center', borderColor: '#2c64c6', borderWidth: 1  }}>
                                 <CheckBox 
                                     value={selectedSkills.includes(skill)} 
-                                    onValueChange={() => onCheck(skill)} 
+                                    onValueChange={() => {
+                                        if (selectedSkills.includes(skill)) {
+                                            setSelectedSkills(selectedSkills.filter((s) => s !== skill));
+                                        } else if (selectedSkills.length < 2) {
+                                            setSelectedSkills([...selectedSkills, skill]);
+                                        }
+                                    }} 
                                     tintColors={{ true: 'white', false: 'white' }}
                                 />
                                 <Text style={{ color: '#FFFFFF' }}>{skill}</Text>

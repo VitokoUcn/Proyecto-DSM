@@ -51,7 +51,7 @@ export const loginStyles = StyleSheet.create({
         color:'white',
         borderRadius: 10,
         paddingHorizontal: 10,
-        marginTop: 20
+        marginTop: 5
     }, 
     buttonContainer: {
         alignItems: 'center',
