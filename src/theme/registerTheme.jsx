@@ -106,7 +106,6 @@ export const loginStyles = StyleSheet.create({
     },
     inputFieldRegister: {
         color: 'white',
-        marginTop: 50,
         fontSize: 20
     },
     loginContainer: {

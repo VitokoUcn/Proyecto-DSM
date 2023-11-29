@@ -1,9 +1,14 @@
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Alert, StyleSheet } from 'react-native';
-import React, { useContext } from 'react'
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Alert, StyleSheet} from 'react-native';
 import { loginStyles } from '../theme/registerTheme';
 import { Background } from '../components/Background';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
+import { Picker } from '@react-native-picker/picker';
+import React, { useState, useContext } from 'react';
+import CheckBox from '@react-native-community/checkbox';
+
+
+
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -21,6 +26,21 @@ const RegisterScreen = ({ navigation }) => {
         signUp({ name, email, password })
     }
 
+    const [selectedSkill, setSelectedSkill] = useState('');
+
+    const skills = ['Res. de Problemas', 'Pensamiento Analitico', 'Trabajo en equipo', 'Creatividad', 'Comunicacion', 'Autodidactismo'];
+
+
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    
+    const onCheck = (skill) => {
+        if (selectedSkills.includes(skill)) {
+        setSelectedSkills(selectedSkills.filter((s) => s !== skill));
+        } else {
+        setSelectedSkills([...selectedSkills, skill]);
+        }
+    };
+
     return (
         <>
             <Background />
@@ -34,8 +54,6 @@ const RegisterScreen = ({ navigation }) => {
                 <View style={loginStyles.formContainer}>
                     <Text style={loginStyles.title}>SocialDev</Text>
                     <Text style={loginStyles.label3}>Registrate para compartir y conocer a otros desarrolladores</Text>
-                    
-                    
                     
 
                     {/* Email */}
@@ -99,6 +117,20 @@ const RegisterScreen = ({ navigation }) => {
                         onChangeText={(value) => onChange(value, 'password')}
                         value={password}
                     />
+
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {skills.map((skill) => (
+                            <View key={skill} style={{ width: '50%', flexDirection: 'row', alignItems: 'center', borderColor: '#2c64c6', borderWidth: 1  }}>
+                                <CheckBox 
+                                    value={selectedSkills.includes(skill)} 
+                                    onValueChange={() => onCheck(skill)} 
+                                    tintColors={{ true: 'white', false: 'white' }}
+                                />
+                                <Text style={{ color: '#FFFFFF' }}>{skill}</Text>
+                            </View>
+                        ))}
+                    </View>
+
                     {/* Boton registro */}
                     <View style={loginStyles.buttonContainer}>
                         <TouchableOpacity
@@ -128,6 +160,6 @@ const RegisterScreen = ({ navigation }) => {
             </KeyboardAvoidingView>
         </>
     )
+    
 }
-
 export default RegisterScreen;
