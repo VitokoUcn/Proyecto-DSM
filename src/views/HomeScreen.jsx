@@ -1,77 +1,68 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, StatusBar, RefreshControl } from 'react-native'
+import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext';
-import userApi from '../api/userApi';
+import Post from '../components/Post';
 
 export const HomeScreen = () => {
-  const { logOut } = useContext(AuthContext);
-  const [posts, setPosts] = useState([]);
+    // Llamar a hooks
+    const { token, getPosts, posts, logOut } = useContext(AuthContext);
+    const [refreshing, setRefreshing] = useState(false);
 
-  // Crea un estado local para guardar el resultado de la petición
-  const [data, setData] = useState([]);
+    //console.log(token);
+    const onRefresh = async () => {
+        setRefreshing(true);
+        // Realizar la solicitud para obtener nuevos datos
+        await getPosts();
+        console.log('Posts actualizados');
+        setRefreshing(false);
+    };
 
-  const loadPosts = async () => {
-    // Usa await para esperar a que se resuelva la promesa
-    const response = await userApi.get('http://192.168.1.85:8000/api/posts');
-    // Actualiza el estado con el nuevo valor
-    setData(response.data);
-    console.log(response.data);
-    console.log(data);
-  }
+    return (
+        <View style={{ 'flex': 1, }}>
+            <View style={{ 'flexDirection': 'row', 'gap': 12, 'justifyContent': 'center' }}>
+                <Text>HomeScreen</Text>
+                <TouchableOpacity
+                    onPress={logOut}
+                >
+                    <Text>Cerrar Sesion</Text>
+                </TouchableOpacity>
+            </View>
 
-  useEffect(() => {
-    // Ejecuta la función loadPosts solo una vez al montar el componente
-    loadPosts();
-  }, []);
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                scrollEnabled
+                data={posts}
+                renderItem={({ item }) => <Post post={item} />}
+                keyExtractor={item => item.id.toString()}
+                style={styles.flatList}
+                contentContainerStyle={{ paddingBottom: 80 }}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            />
+        </View>
+    )
 
-  
 
-  const renderPost = ({ item }) => (
-    <View style={styles.postContainer}>
-      <Text>{item.title}</Text>
-      <Text>{item.body}</Text>
-      <Image source={{uri: item.image}} style={{width: 200, height: 200}} />
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <Text>HomeScreen</Text>
-      <FlatList
-        data={data} // Usa el estado local en lugar del estado global
-        renderItem={renderPost}
-        keyExtractor={item => item.id.toString()}
-      />
-      <TouchableOpacity style={styles.logoutButton} onPress={logOut}>
-        <Text style={styles.buttonText}>Cerrar Sesión</Text>
-      </TouchableOpacity>
-    </View>
-  );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  postContainer: {
-    marginVertical: 8,
-    padding: 16,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 8,
-  },
-  logoutButton: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
-    backgroundColor: '#888',
-    padding: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-  },
+    container: {
+        flex: 1,
+        marginTop: StatusBar.currentHeight || 0,
+    },
+    item: {
+        backgroundColor: '#f9c2ff',
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
+    },
+    title: {
+        fontSize: 32,
+    },
+    flatList: {
+        flexGrow: 1, // Para asegurar que la FlatList se expanda según el contenido
+    },
 });
 
 export default HomeScreen;
